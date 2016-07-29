@@ -39,11 +39,11 @@ defmodule PhoenixChangeTransport.MsgPackSerializer do
   Decodes JSON String into `Phoenix.Socket.Message` struct.
   """
   def decode!(message, _opts) do
-    IO.puts("message: #{inspect message}")
+    #IO.puts("message: #{inspect message}")
     unpacked = message
       |> Msgpax.unpack!()
     
-    IO.puts("message: #{inspect unpacked}")
+    #IO.puts("message: #{inspect unpacked}")
 
     Phoenix.Socket.Message.from_map!(unpacked)
     #Maptu.struct!(Phoenix.Socket.Message, unpacked)
