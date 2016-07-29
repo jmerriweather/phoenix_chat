@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "msgpack-js-v5": {
+      "version": "0.3.0-v5",
+      "from": "msgpack-js-v5@0.3.0-v5",
+      "dependencies": {
+        "bops": {
+          "version": "github:creationix/bops",
+          "from": "bops"
+        }
+      }
+    }
+  }
+}

@@ -12,11 +12,12 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-import {Socket, Presence} from "phoenix"
+import MsgPackSerializer from "./msgpackSerializer"
+import {Socket, Presence} from "./phoenix"
 
 // Socket
 let user = document.getElementById("User").innerText
-let socket = new Socket("/socket", {params: {user: user}})
+let socket = new Socket("/socket", {params: {user: user}, serializer: new MsgPackSerializer()})
 socket.connect()
 
 // Presence
@@ -48,12 +49,12 @@ let render = (presences) => {
 // Channels
 let room = socket.channel("room:lobby", {})
 room.on("presence_state", state => {
-  Presence.syncState(presences, state)
+  presences = Presence.syncState(presences, state)
   render(presences)
 })
 
 room.on("presence_diff", diff => {
-  Presence.syncDiff(presences, diff)
+  presences = Presence.syncDiff(presences, diff)
   render(presences)
 })
 
@@ -77,7 +78,7 @@ let renderMessage = (message) => {
     <p>${message.body}</p>
   `
   messageList.appendChild(messageElement)
-  messageList.scrollTop = messageList.scrollHeight;
+  messageList.scrollTop = messageList.scrollHeight
 }
 
 room.on("message:new", message => renderMessage(message))
