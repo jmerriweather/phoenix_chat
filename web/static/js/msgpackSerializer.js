@@ -2,12 +2,6 @@ import msgpack from "msgpack-js-v5"
 
 export default class MsgPackSerializer {
 
-  contentType() { return "application/msgpack" }
-
-  isBinary() { return true }
-
-  binaryType() { return "arraybuffer" }  
-
   encode(payload, callback) {
     callback(msgpack.encode(payload))
   }

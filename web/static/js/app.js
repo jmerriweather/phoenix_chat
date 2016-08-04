@@ -13,11 +13,12 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 import MsgPackSerializer from "./msgpackSerializer"
-import {Socket, Presence} from "./phoenix"
+import {Socket, Presence, LongPoll} from "./phoenix"
 
 // Socket
 let user = document.getElementById("User").innerText
-let socket = new Socket("/socket", {params: {user: user}, serializer: new MsgPackSerializer()})
+var serializer = new MsgPackSerializer()
+let socket = new Socket("/socket", {params: {user: user}, encode: serializer.encode, decode: serializer.decode})
 socket.connect()
 
 // Presence
